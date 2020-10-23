@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Fontawesome -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  
+    <title>Document</title>
+</head>
+<body>
+    <h1 class="lol">steam: <i class="fas fa-spinner fa-spin"> </i></h1>
+    <h1 class="lol">steam: <i class="fas fa-spinner fa-spin"> </i></h1>
+    <h1 class=="lol">steam: <i class="fas fa-spinner fa-spin"> </i></h1>
+   
+
+   
+<script>
+    Fetch();
+
+function Fetch(){
+    var xmlHttp = new XMLHttpRequest();
+    var url="https://21715.wayscript.io/";
+
+    //בודק תוך כדי טעינה
+    xmlHttp.onreadystatechange=function(){
+        if(this.status==200 && this.readyState==4){  //final load
+            //console.log(JSON.parse(this.response));//JSON Parse turn string to object
+            //var lista=this.response;
+            var lista=JSON.parse(this.response);
+            createCoins(lista)
+        }
+    }
+    
+    xmlHttp.open("GET",url,true); //true=asynchronous
+    xmlHttp.send();
+}; 
+
+function createCoins (listos){
+    console.log(listos)
+    console.log(listos[1])
+    for(i=0;i<listos.length;i++){
+        var name=document.querySelector(".lol")
+        var icon=document.querySelector(".fas").remove();
+
+        name.innerHTML+=listos[i]
+        //console.log(listos.SteamCqloud)
+
+
+    }
+    
+
+}
+
+</script>
+</body>
+</html>

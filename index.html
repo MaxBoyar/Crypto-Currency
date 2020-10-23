@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Bootstrap-->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ 
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <!-- Fontawesome -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+ 
+    <title>Crypto currency</title>
+</head>
+<body>
+    <div class="container text-center"><h1>Crypto currency</h1></div>
+    
+    <div class="container text-center">
+        <ul class="list-group text-center">
+        
+          </ul>
+    
+    
+
+    </div>
+    
+<script>
+    //Pure js xml request
+    Fetch();
+
+    function Fetch(){
+        var xmlHttp = new XMLHttpRequest();
+        var url="http://fs1.co.il/bus/bitcoin.php";
+
+        //בודק תוך כדי טעינה
+        xmlHttp.onreadystatechange=function(){
+            if(this.status==200 && this.readyState==4){  //final load
+                //console.log(JSON.parse(this.response));//JSON Parse turn string to object
+                var coins=JSON.parse(this.response);
+                createCoins(coins)
+            }
+        }
+        
+        xmlHttp.open("GET",url,true); //true=asynchronous
+        xmlHttp.send();
+    };
+
+    function createCoins(coinsArr){
+        var body=document.querySelector(".list-group")
+        for (var i=0;i< coinsArr.length;i++){
+
+            var moneyRec=coinsArr[i].price_usd
+            //idx=coinsArr[i].symbol
+
+            console.log(coinsArr[i].name)
+            //body.innerHTML+=`<h3>${coinsArr[i].name}</h3>`
+            body.innerHTML+=`
+            <li class="list-group-item" >
+                <i class="fab fa-bitcoin"><span> <h3>${coinsArr[i].name}</h3><span> USD Price: ${moneyRec}</i>
+                <div></div>
+                <button   class="btn btn-outline-info" id="${coinsArr[i].id}  type="button" value="Open Curtain" onclick="changeToIls(this.parentNode,${moneyRec},this);"  >Show in ILS</button>  
+                
+            </li>
+            
+            `;
+
+        }
+    }
+    function changeToIls(ids,money,btnId){
+     
+        ils=money*3.4
+        ilsNew=Math.floor(ils)
+        console.log(ils)
+       
+    
+        
+        try{
+
+            var testId =document.getElementById(ils); 
+            
+            
+            if(!testId){
+                //childBtn=ids[0]
+                //console.log(childBtn)
+                ids.innerHTML+=` <p id="${ils}" class="justify-content-center">ILS=${ilsNew}</p>`;
+                var elem = document.getElementById(btnId.id);
+                elem.innerHTML="close"
+                elem.className="btn btn-outline-danger";
+                
+
+            }
+            else{
+                testId.remove();
+                var elem = document.getElementById(btnId.id);
+                elem.innerHTML="Show in ILS"
+                elem.className="btn btn-outline-info";
+                
+
+            }
+            
+        }
+        catch{
+            
+        }
+        
+      
+   
+
+    }
+
+</script>
+</body>
+</html>
